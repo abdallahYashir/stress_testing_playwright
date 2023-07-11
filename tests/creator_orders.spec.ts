@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, Page } from '@playwright/test';
 import * as fs from 'fs';
 
 test.describe('Creator Orders', () => {
@@ -15,38 +15,22 @@ test.describe('Creator Orders', () => {
     // await page.waitForEvent('load');
     await page.waitForLoadState('networkidle');
     
-    await page.goto('/creators/orders');
-    // await page.click('a[href="/creators/orders"]');
-    await page.waitForLoadState('networkidle');
-
-    await page.getByRole('tab', { name: 'All' }).click();
-    await page.getByRole('tab', { name: 'Awaiting application' }).click();
-    await page.getByRole('tab', { name: 'Awaiting shipping' }).click();
-    await page.getByRole('tab', { name: 'To do' }).click();
-    await page.getByRole('tab', { name: 'Published' }).first().click();
-    await page.getByRole('tab', { name: 'Published' }).last().click();
-    await page.getByRole('tab', { name: 'Archived' }).click();
-
-    // await page.waitForLoadState('networkidle');
-
-    // refresh page
-    // loop 10 times
-    // Listen for all console events and handle errors
+    for (let i = 0; i < 100; i++) {
+      await goToOrders(page);
+      await cycleOrdersTabs(page);
+    }
     
-    // create a new file in root
-    
-
     const errors: string[] = [];
-
+    
     page.on('console', msg => {
       if (msg.type() === 'error')
-        errors.push(msg.text());
-        // errors.push(`Error text: "${msg.text()}"`);
+      errors.push(msg.text());
+      errors.push(`Error text: "${msg.text()}"`);
     });
-
+    
     const currentPath = process.cwd();
     const filePath = `${currentPath}/logs.txt`;
-
+    
     fs.writeFile(filePath, errors.toString(), function (err) {
       if (err) throw err;
       console.log('File created successfully!');
@@ -54,3 +38,20 @@ test.describe('Creator Orders', () => {
     
   });
 });
+
+// create a function that will go to orders and the different tabs
+async function goToOrders(page: Page) {
+  await page.goto('/creators/orders');
+  // await page.click('a[href="/creators/orders"]');
+  // await page.waitForLoadState('networkidle');
+}
+
+async function cycleOrdersTabs(page: Page) {
+  await page.getByRole('tab', { name: 'All' }).click();
+  await page.getByRole('tab', { name: 'Awaiting application' }).click();
+  await page.getByRole('tab', { name: 'Awaiting shipping' }).click();
+  await page.getByRole('tab', { name: 'To do' }).click();
+  await page.getByRole('tab', { name: 'Published' }).first().click();
+  await page.getByRole('tab', { name: 'Published' }).last().click();
+  await page.getByRole('tab', { name: 'Archived' }).click();
+}
