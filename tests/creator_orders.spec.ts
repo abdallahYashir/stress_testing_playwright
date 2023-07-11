@@ -3,8 +3,8 @@ import * as fs from 'fs';
 
 test.describe('Creator Orders', () => {
   test('should be able to see orders', async ({ page }) => {
-    // TODO: 
-    const username = 'rolf@ruecker.example';
+    
+    const username = 'creator551414@octoly.com';
     const password = '1Password@';
     
     await page.goto('/login');
@@ -12,12 +12,22 @@ test.describe('Creator Orders', () => {
     await page.fill('input[name="sign_in[password]"]', password);
     await page.click('button[type="submit"]');
     
-    await page.waitForEvent('load');
+    // await page.waitForEvent('load');
     await page.waitForLoadState('networkidle');
     
-    // await page.goto('/creators/orders');
-    await page.click('a[href="/creators/orders"]');
+    await page.goto('/creators/orders');
+    // await page.click('a[href="/creators/orders"]');
     await page.waitForLoadState('networkidle');
+
+    await page.getByRole('tab', { name: 'All' }).click();
+    await page.getByRole('tab', { name: 'Awaiting application' }).click();
+    await page.getByRole('tab', { name: 'Awaiting shipping' }).click();
+    await page.getByRole('tab', { name: 'To do' }).click();
+    await page.getByRole('tab', { name: 'Published' }).first().click();
+    await page.getByRole('tab', { name: 'Published' }).last().click();
+    await page.getByRole('tab', { name: 'Archived' }).click();
+
+    // await page.waitForLoadState('networkidle');
 
     // refresh page
     // loop 10 times
