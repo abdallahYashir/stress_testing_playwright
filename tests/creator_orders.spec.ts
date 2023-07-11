@@ -12,7 +12,6 @@ test.describe('Creator Orders', () => {
     await page.fill('input[name="sign_in[password]"]', password);
     await page.click('button[type="submit"]');
     
-    // await page.waitForEvent('load');
     await page.waitForLoadState('networkidle');
     
     for (let i = 0; i < 100; i++) {
@@ -29,7 +28,7 @@ test.describe('Creator Orders', () => {
     });
     
     const currentPath = process.cwd();
-    const filePath = `${currentPath}/logs.txt`;
+    const filePath = `${currentPath}/creator_orders_logs.txt`;
     
     fs.writeFile(filePath, errors.toString(), function (err) {
       if (err) throw err;

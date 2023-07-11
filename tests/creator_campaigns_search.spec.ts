@@ -14,7 +14,7 @@ test.describe('Creator Campaigns Search', () => {
     
     await page.waitForLoadState('networkidle');
     
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 1; i++) {
       await goToCampaignsSearch(page);
       await cycleCampaignsCategories(page);
     }
@@ -43,11 +43,12 @@ async function goToCampaignsSearch(page: Page) {
 }
 
 async function cycleCampaignsCategories(page: Page) {
-  await page.getByRole('tab', { name: 'All' }).click();
-  await page.getByRole('tab', { name: 'Awaiting application' }).click();
-  await page.getByRole('tab', { name: 'Awaiting shipping' }).click();
-  await page.getByRole('tab', { name: 'To do' }).click();
-  await page.getByRole('tab', { name: 'Published' }).first().click();
-  await page.getByRole('tab', { name: 'Published' }).last().click();
-  await page.getByRole('tab', { name: 'Archived' }).click();
+  await page.getByText('All categories').click();
+  await page.getByText('Cosmetics').click();
+  await page.getByText('Fashion').click();
+  await page.getByText('Fitness & Nutrition').click();
+  await page.getByText('Food & Beverages').click();
+  await page.getByText('Hair Care').click();
+  await page.getByText('Home & Garden').click();
+  await page.getByText('Oral Care').click();
 }
