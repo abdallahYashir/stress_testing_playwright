@@ -4,8 +4,8 @@ import * as fs from 'fs';
 test.describe('Creator Campaigns Search', () => {
   test('should be able to see campaigns in search', async ({ page }) => {
     
-    const username = 'creator551414@octoly.com';
-    const password = '1Password@';
+    const username = 'username_here';
+    const password = 'password_here';
     
     await page.goto('/login');
     await page.fill('input[name="sign_in[email]"]', username);
@@ -43,12 +43,13 @@ async function goToCampaignsSearch(page: Page) {
 }
 
 async function cycleCampaignsCategories(page: Page) {
-  await page.getByText('All categories').click();
-  await page.getByText('Cosmetics').click();
-  await page.getByText('Fashion').click();
-  await page.getByText('Fitness & Nutrition').click();
-  await page.getByText('Food & Beverages').click();
-  await page.getByText('Hair Care').click();
-  await page.getByText('Home & Garden').click();
-  await page.getByText('Oral Care').click();
+  await page.getByRole('link', { name: 'All categories' }).click();
+  await page.getByRole('link', {name: 'Cosmetics'} ).click();
+  await page.getByRole('link', { name: 'Fashion' }).click();
+  await page.getByRole('link', { name: 'Fitness & Nutrition' }).click();
+
+  await page.getByRole('link', { name: 'Food & Beverages' }).click();
+  await page.getByRole('link', { name: 'Hair Care' }).click();
+  await page.getByRole('link', { name: 'Home & Garden' }).click();
+  await page.getByRole('link', { name: 'Oral Care' }).click();
 }

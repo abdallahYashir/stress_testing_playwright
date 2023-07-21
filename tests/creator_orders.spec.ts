@@ -4,8 +4,8 @@ import * as fs from 'fs';
 test.describe('Creator Orders', () => {
   test('should be able to see orders', async ({ page }) => {
     
-    const username = 'creator551414@octoly.com';
-    const password = '1Password@';
+    const username = 'username';
+    const password = 'password';
     
     await page.goto('/login');
     await page.fill('input[name="sign_in[email]"]', username);
@@ -41,8 +41,6 @@ test.describe('Creator Orders', () => {
 // create a function that will go to orders and the different tabs
 async function goToOrders(page: Page) {
   await page.goto('/creators/orders');
-  // await page.click('a[href="/creators/orders"]');
-  // await page.waitForLoadState('networkidle');
 }
 
 async function cycleOrdersTabs(page: Page) {
